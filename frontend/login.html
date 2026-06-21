@@ -491,6 +491,9 @@
                     btn.textContent = "Logging in...";
                     await activeAuth.signInWithEmailAndPassword(email, pass);
                     showAlert("Login successful! Redirecting...", "success");
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 500);
                 } catch (err) {
                     showAlert(err.message || "Invalid email or password. Please try again.");
                     btn.disabled = false;
@@ -536,7 +539,10 @@
                             console.warn("Could not save profile document: ", dbErr);
                         }
                     }
-                    showAlert("Account created successfully!", "success");
+                    showAlert("Account created successfully! Redirecting...", "success");
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 500);
                 } catch (err) {
                     showAlert(err.message || "Failed to create account.");
                     btn.disabled = false;
@@ -583,7 +589,10 @@
                                 console.warn("Could not save Google profile: ", dbErr);
                             }
                         }
-                        showAlert("Google authentication successful!", "success");
+                        showAlert("Google authentication successful! Redirecting...", "success");
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 500);
                     } catch (err) {
                         showAlert(err.message || "Google login aborted.");
                     }
