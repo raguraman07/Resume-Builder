@@ -7,7 +7,9 @@ let zoomLevel = 1.0;
 let isSaving = false;
 
 // API Base URL
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? 'http://localhost:5000'
+    : window.location.origin;
 
 document.addEventListener('DOMContentLoaded', () => {
     const path = window.location.pathname;

@@ -79,7 +79,7 @@ def generate_ai_suggestions(prompt_type, current_text, platform):
     Generates professional suggestions based on prompt type (summary, experience, or skill) 
     and target platform. Uses Gemini API if API key is configured.
     """
-    api_key ="AQ.Ab8RN6JzKwcIhDOKY_i-E4CCYrzY6iJ4TLVuNu1b8bBWPib4Kw"
+    api_key = os.environ.get("GEMINI_API_KEY") or "AQ.Ab8RN6JzKwcIhDOKY_i-E4CCYrzY6iJ4TLVuNu1b8bBWPib4Kw"
     platform = platform.lower() if platform else 'general'
     if platform not in PLATFORM_PRESETS:
         platform = 'general'

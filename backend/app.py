@@ -1,21 +1,32 @@
 import os
+import sys
+
+# Add the root directory to the Python path to ensure 'services' is found
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import io
 import traceback
 
+# Now these imports will work correctly as long as __init__.py exists in services/
 from services.ats_checker import check_ats_score
 from services.ai_advisor import generate_ai_suggestions
 from services.pdf_generator import html_to_pdf
 
-app = Flask(__name__)
-# Enable CORS for local dev environment
+frontend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'frontend'))
+app = Flask(__name__, static_folder=frontend_dir, static_url_path='')
+# Enable CORS
 CORS(app)
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 @app.route('/api/status', methods=['GET'])
 def status():
     return jsonify({
-        'status': 'online',
+        'status': 'online', 
         'message': 'Resume Builder API is running'
     })
 
@@ -72,7 +83,6 @@ def generate_pdf():
         if not filename.endswith('.pdf'):
             filename += '.pdf'
             
-        # The styled_html string injection
         styled_html = f"""<!DOCTYPE html><html><head><meta charset="utf-8">
         <style>
             @page {{ size: letter; margin: 0.4in; }}
@@ -88,7 +98,6 @@ def generate_pdf():
         pdf_bytes = html_to_pdf(styled_html)
         
         if pdf_bytes is None:
-            # THIS IS WHERE YOU WILL FIND THE REAL ERROR IN YOUR TERMINAL
             print("PDF generation returned None. Check your HTML/CSS compatibility.")
             return jsonify({'error': 'PDF generation failed - check server logs'}), 500
             
@@ -99,10 +108,8 @@ def generate_pdf():
             download_name=filename
         )
     except Exception as e:
-        # This will print the exact line number and cause of the crash to your terminal
         traceback.print_exc()
         return jsonify({'error': str(e), 'message': 'Server error during PDF export'}), 500
 
 if __name__ == '__main__':
-    # Run server locally on port 5000
     app.run(debug=True, port=5000)
