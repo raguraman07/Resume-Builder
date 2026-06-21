@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Build stunning, ATS-friendly resumes in real-time. Choose from premium templates and land your dream job with AI suggestions and real-time score grading.">
+    <title>🖍️ ResumeCraft | AI-Powered Resume Builder</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+    <div class="blob-1"></div>
+    <div class="blob-2"></div>
+
+    <header class="landing-nav">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" id="nav-logo">
+                <i class="fas fa-magic"></i> ResumeCraft
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#templates" class="nav-link">Templates</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <button class="btn btn-secondary btn-icon theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+                <a href="login.html" class="btn btn-secondary">Log In</a>
+                <a href="login.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container">
+            <span class="hero-tag anim-fade"><i class="fas fa-sparkles"></i> AI-Powered Resume Enhancements</span>
+            <h1 class="hero-title anim-slide-up">
+                Build a Resume That Lands Your <span class="grad-text">Dream Job</span>
+            </h1>
+            <p class="hero-desc anim-fade">
+                Create recruiter-approved, ATS-optimized resumes in minutes. Customize designs in real time, check your ATS score, and download premium PDFs with a single click.
+            </p>
+            
+            <div class="hero-ctas anim-slide-up">
+                <a href="login.html" class="btn btn-primary" style="padding: 16px 32px; font-size: 16px;">
+                    <i class="fas fa-rocket"></i> Build Your Resume Now
+                </a>
+                <a href="#features" class="btn btn-secondary" style="padding: 16px 32px; font-size: 16px;">
+                    Learn More <i class="fas fa-arrow-down"></i>
+                </a>
+            </div>
+            
+            <div class="hero-mockup glass-card anim-scale-up" id="mockup-view">
+                <div style="background: rgba(15,23,42,0.8); height: 40px; border-radius: 12px 12px 0 0; display:flex; align-items:center; padding: 0 16px; gap:8px;">
+                    <span style="width:12px; height:12px; border-radius:50%; background:#ef4444;"></span>
+                    <span style="width:12px; height:12px; border-radius:50%; background:#fbbf24;"></span>
+                    <span style="width:12px; height:12px; border-radius:50%; background:#34d399;"></span>
+                    <span style="color:#64748b; font-size:12px; margin-left: 16px; font-family: monospace;">resumecraft.ai/builder</span>
+                </div>
+                <div style="padding: 40px; display: flex; align-items: center; justify-content: center; height: 350px; background: var(--bg-secondary); border-radius: 0 0 12px 12px;">
+                    <div style="text-align: center;">
+                        <i class="far fa-file-alt" style="font-size: 80px; color: var(--primary); margin-bottom: 20px;"></i>
+                        <h2>Real-Time Live Customizer & Spacing Engine</h2>
+                        <p style="color:var(--text-secondary); max-width:400px; margin-top:8px;">Experience the canvas drag, instant color updates, and 10 elegant layout templates.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Features Designed for Job-Seekers</h2>
+                <p class="section-desc">We combine premium design with ATS technology to ensure you bypass recruiters' screeners and get interviewed.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card glass-card">
+                    <div class="feature-icon"><i class="fas fa-qrcode"></i></div>
+                    <h3>100% ATS Friendly</h3>
+                    <p>Every single layout template is structured to ensure that machine parsing algorithms scan and index your contact details, jobs, and skills seamlessly.</p>
+                </div>
+                <div class="feature-card glass-card">
+                    <div class="feature-icon"><i class="fas fa-magic"></i></div>
+                    <h3>AI Suggestion Advisor</h3>
+                    <p>Integrates directly with Gemini AI to rewrite plain job bullets and descriptions using professional frameworks like the STAR method (Action + Result).</p>
+                </div>
+                <div class="feature-card glass-card">
+                    <div class="feature-icon"><i class="fas fa-sync"></i></div>
+                    <h3>Real-Time Preview Canvas</h3>
+                    <p>Adjust margins, spacing, fonts (Inter, Poppins, Montserrat) and primary palettes, seeing results inside the preview sheet instantly without refreshing.</p>
+                </div>
+                <div class="feature-card glass-card">
+                    <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
+                    <h3>Live ATS Score Checker</h3>
+                    <p>Get a dynamic grading out of 100 for your content completeness and keyword densities, tailored specifically to your target platforms like tech or finance.</p>
+                </div>
+                <div class="feature-card glass-card">
+                    <div class="feature-icon"><i class="fas fa-cloud"></i></div>
+                    <h3>Auto-Save & Cloud Storage</h3>
+                    <p>Never lose progress. Resumes are continuously auto-saved in Firebase and easily managed via a responsive dashboard where you duplicate, edit, or delete them.</p>
+                </div>
+                <div class="feature-card glass-card">
+                    <div class="feature-icon"><i class="fas fa-file-pdf"></i></div>
+                    <h3>One-Click PDF Export</h3>
+                    <p>High-resolution, printable PDF compiler with custom margins, embedded fonts, and page numbering, downloaded instantly on demand.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="templates-section" id="templates" style="padding: 80px 0; background: var(--bg-secondary, rgba(15, 23, 42, 0.05));">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 48px;">
+                <h2 class="section-title">Choose From 10 Premium Layouts</h2>
+                <p class="section-desc" style="max-width: 600px; margin: 8px auto 0; color: var(--text-secondary);">Expertly compiled variations matching industry requirements. Pick a design variant and customize elements seamlessly.</p>
+            </div>
+            
+            <div class="templates-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
+                <div class="template-showcase-card glass-card" style="text-align: center; padding: 24px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                    <div style="background: #0f172a; height: 200px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: #64748b;">
+                        <i class="fas fa-file-alt" style="font-size: 48px; color: #06b6d4;"></i>
+                    </div>
+                    <h3>Elegant Dark</h3>
+                    <p style="font-size: 14px; color: var(--text-secondary); margin: 8px 0 16px;">Premium midnight rendering with customizable neon accents.</p>
+                    <a href="login.html" class="btn btn-secondary" style="font-size: 14px; padding: 8px 16px;">Use Template</a>
+                </div>
+                
+                <div class="template-showcase-card glass-card" style="text-align: center; padding: 24px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                    <div style="background: #ffffff; height: 200px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.1);">
+                        <i class="fas fa-align-left" style="font-size: 48px; color: #1e293b;"></i>
+                    </div>
+                    <h3 style="color: inherit;">Minimalist Clear</h3>
+                    <p style="font-size: 14px; color: var(--text-secondary); margin: 8px 0 16px;">High-density single column layout engineered for core tech ATS scans.</p>
+                    <a href="login.html" class="btn btn-secondary" style="font-size: 14px; padding: 8px 16px;">Use Template</a>
+                </div>
+
+                <div class="template-showcase-card glass-card" style="text-align: center; padding: 24px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                    <div style="background: #f8fafc; height: 200px; border-radius: 8px; display: flex; margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.1); overflow: hidden;">
+                        <div style="background: #1e293b; width: 30%; height: 100%;"></div>
+                        <div style="width: 70%; height: 100%;"></div>
+                    </div>
+                    <h3>Modern Sidebar</h3>
+                    <p style="font-size: 14px; color: var(--text-secondary); margin: 8px 0 16px;">Asymmetric layout prioritizing core skills alongside career timelines.</p>
+                    <a href="login.html" class="btn btn-secondary" style="font-size: 14px; padding: 8px 16px;">Use Template</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Importance of Resume by Top Professionals</h2>
+                <p class="section-desc">Read importance from expects who landed positions at Netflix, Google, and Microsoft.</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card glass-card">
+                    <p class="testimonial-text">"A résumé should be concise and focus on achievements rather than job duties. It helps recruiters quickly understand a candidate's skills, accomplishments, and potential value to the organization."</p>
+                    <div class="user-profile">
+                        <div class="user-info">
+                            <h4>Laszlo Bock</h4>
+                            <p>Former Head of People Operations @ Google</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card glass-card">
+                    <p class="testimonial-text">"A résumé should demonstrate the value a candidate has created in previous roles. Highlighting results and contributions helps employers assess future performance and suitability for the job."</p>
+                    <div class="user-profile">
+                        <div class="user-info">
+                            <h4>Patty McCord</h4>
+                            <p>Former Chief Talent Officer @ Netflix</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card glass-card">
+                    <p class="testimonial-text">"A résumé serves as a professional introduction that clearly presents a candidate's qualifications, skills, and experience."</p>
+                    <div class="user-profile">
+                        <div class="user-info">
+                            <h4>Gauri Manglik</h4>
+                            <p>Former Recruiting Leader @ Microsoft</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4 class="logo"><i class="fas fa-magic"></i> ResumeCraft</h4>
+                    <p style="color:var(--text-secondary); font-size:14px; margin-top:8px;">Crafting beautiful templates and job-winning content powered by AI.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#templates">Templates</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ResumeCraft. Designed for job success.</p>
+                <div style="display:flex; gap:16px;">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+    <script>
+        // Dark Mode toggling logic
+        const themeBtn = document.getElementById('theme-toggle');
+        
+        // Check local storage for preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
+        
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const current = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+            localStorage.setItem('theme', current);
+        });
+
+        // Direct Auth Check to change CTA behavior
+        activeAuth.onAuthStateChanged((user) => {
+            if (user) {
+                // If signed in, redirect 'Start Free' to dashboard
+                document.querySelectorAll('a[href="login.html"]').forEach(el => {
+                    el.href = 'dashboard.html';
+                    if (el.textContent.trim() === 'Log In') {
+                        el.textContent = 'Dashboard';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

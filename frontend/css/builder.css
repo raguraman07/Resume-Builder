@@ -1,0 +1,456 @@
+/* Resume Builder Application Layout & Styles */
+
+.builder-workspace {
+    display: flex;
+    height: 100vh;
+    padding-top: 70px;
+    overflow: hidden;
+}
+
+/* Header/Toolbar specifically for the Builder */
+.builder-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    z-index: 100;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+}
+
+.builder-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.builder-nav-left h2 {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.builder-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Left Panel: Form Wizard */
+.builder-form-panel {
+    width: 45%;
+    min-width: 400px;
+    max-width: 600px;
+    height: 100%;
+    overflow-y: auto;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Stepper progress */
+.stepper-progress {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    position: relative;
+}
+
+.stepper-progress::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--border-color);
+    z-index: 1;
+}
+
+.step-indicator {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    z-index: 2;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.step-indicator.active {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: #ffffff;
+}
+
+.step-indicator.completed {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+/* Form Sections */
+.form-step-container {
+    display: none;
+    flex-grow: 1;
+    animation: fadeIn 0.4s ease;
+}
+
+.form-step-container.active {
+    display: block;
+}
+
+.form-step-header {
+    margin-bottom: 24px;
+}
+
+.form-step-header h3 {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.form-step-header p {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* Dynamic Item Card (e.g. for multiple experience/education items) */
+.dynamic-item-card {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    margin-bottom: 16px;
+    position: relative;
+    animation: slideUp 0.3s ease;
+}
+
+.dynamic-item-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.dynamic-item-card-header h4 {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.btn-remove-item {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn-add-item {
+    width: 100%;
+    padding: 12px;
+    border: 2px dashed var(--border-color);
+    background: none;
+    color: var(--primary);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 8px;
+    margin-bottom: 24px;
+}
+
+.btn-add-item:hover {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.03);
+}
+
+/* Skills Tags Input */
+.tags-input-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+    margin-bottom: 8px;
+}
+
+.skill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+body.dark-theme .skill-tag {
+    background: #1e1b4b;
+    color: #818cf8;
+}
+
+.skill-tag button {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.tags-input-container input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background: none;
+    color: var(--text-primary);
+    padding: 4px 0;
+    min-width: 120px;
+}
+
+/* Right Panel: Preview Area */
+.builder-preview-panel {
+    flex-grow: 1;
+    height: 100%;
+    background: var(--bg-primary);
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Toolbar for zoom, fullscreen */
+.preview-toolbar {
+    position: sticky;
+    top: 0;
+    background: var(--bg-primary);
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    z-index: 10;
+}
+
+.toolbar-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Resume Paper Sheet Layout */
+.resume-paper-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px;
+    min-height: calc(100vh - 130px);
+}
+
+.resume-paper {
+    width: 8.5in;
+    min-height: 11in;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    padding: 0.5in;
+    transition: transform 0.2s ease;
+    transform-origin: top center;
+    color: #2d3748; /* Always dark for PDF readability */
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Side Drawers (Customizer, ATS Score) */
+.builder-drawer {
+    position: fixed;
+    top: 70px;
+    right: -340px;
+    width: 340px;
+    height: calc(100vh - 70px);
+    background: var(--bg-secondary);
+    border-left: 1px solid var(--border-color);
+    box-shadow: var(--glass-shadow);
+    z-index: 80;
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 24px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.builder-drawer.active {
+    right: 0;
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+/* ATS Checker Score Indicator */
+.ats-score-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.circular-progress {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(var(--primary) 0deg, var(--bg-tertiary) 0deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    transition: var(--transition);
+}
+
+.circular-progress::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+}
+
+.progress-value {
+    position: relative;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.ats-feedback-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ats-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    border: 1px solid var(--border-color);
+}
+
+.ats-item-icon {
+    font-size: 16px;
+    margin-top: 2px;
+}
+
+.ats-item.warning {
+    background: rgba(249, 115, 22, 0.05);
+    border-color: rgba(249, 115, 22, 0.15);
+    color: var(--text-primary);
+}
+.ats-item.warning .ats-item-icon { color: var(--accent); }
+
+.ats-item.success {
+    background: rgba(16, 185, 129, 0.05);
+    border-color: rgba(16, 185, 129, 0.15);
+    color: var(--text-primary);
+}
+.ats-item.success .ats-item-icon { color: #10b981; }
+
+.ats-item.info {
+    background: rgba(59, 130, 246, 0.05);
+    border-color: rgba(59, 130, 246, 0.15);
+    color: var(--text-primary);
+}
+.ats-item.info .ats-item-icon { color: #3b82f6; }
+
+/* Custom Styling Color Presets */
+.color-swatches {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.swatch {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: var(--transition);
+}
+
+.swatch.active {
+    border-color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+/* AI Advisor Suggestion box */
+.ai-suggestion-box {
+    margin-top: 12px;
+    padding: 16px;
+    background: rgba(99, 102, 241, 0.05);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    position: relative;
+    display: none;
+}
+
+.ai-suggestion-box.active {
+    display: block;
+}
+
+.ai-suggestion-text {
+    font-style: italic;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+/* Step Wizard Buttons */
+.wizard-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Fullscreen mode */
+.builder-preview-panel.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 200;
+}
+
+/* Responsiveness for builder */
+@media (max-width: 900px) {
+    .builder-workspace { flex-direction: column; overflow: auto; }
+    .builder-form-panel { width: 100%; max-width: none; height: auto; border-right: none; border-bottom: 1px solid var(--border-color); }
+    .builder-preview-panel { width: 100%; height: auto; }
+    .resume-paper-container { overflow-x: auto; padding: 20px; }
+    .resume-paper { transform: scale(0.8); transform-origin: top left; }
+}

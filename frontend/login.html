@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Auth Portal</title>
+    <style>
+        /* Base Architecture & Custom Theming Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        :root {
+            --accent-pink: #ea00d9;
+            --accent-purple: #711c91;
+            --accent-cyan: #00b4d8;
+            --accent-green: #38ef7d;
+            --text-light: #ffffff;
+            --text-dark: #1f2937;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #120c1f 0%, #1a103c 50%, #0d0714 100%);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Interactive Dynamic Visual Ambient Lights */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+            pointer-events: none;
+            animation: floatLights 12s ease-in-out infinite alternate;
+        }
+        body::before {
+            background: var(--accent-pink);
+            top: 15%;
+            left: 20%;
+        }
+        body::after {
+            background: var(--accent-cyan);
+            bottom: 15%;
+            right: 20%;
+            animation-delay: -6s;
+        }
+
+        @keyframes floatLights {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, 30px) scale(1.2); }
+        }
+
+        /* Glassmorphism Auth Framework Container */
+        .auth-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 460px;
+            padding: 35px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Header Area Styling */
+        .auth-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        #auth-title {
+            color: var(--text-light);
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+        #auth-subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+        }
+
+        /* Tabs Switcher Grid */
+        .auth-tabs {
+            display: flex;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 5px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Alert Display System */
+        .alert-banner {
+            display: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .alert-banner.active {
+            display: block;
+        }
+        .alert-error {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.25);
+        }
+        .alert-success {
+            background: rgba(56, 239, 125, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(56, 239, 125, 0.25);
+        }
+
+        /* Forms Layout Fields Management */
+        .auth-form {
+            display: none;
+        }
+        #form-login { display: block; } 
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        .form-group input:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Form Auxiliary Links Row */
+        .form-options {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+        .form-options a, .back-link {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+        .form-options a:hover, .back-link:hover {
+            color: var(--text-light);
+            text-decoration: underline;
+        }
+
+        /* Action Controls Buttons Styling */
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--accent-pink) 0%, var(--accent-purple) 100%);
+            border: none;
+            border-radius: 10px;
+            color: var(--text-light);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(234, 0, 217, 0.3);
+        }
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(234, 0, 217, 0.45);
+        }
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Divider Interface Layout */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+            margin: 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .divider:not(:empty)::before { margin-right: .5em; }
+        .divider:not(:empty)::after { margin-left: .5em; }
+
+        /* Provider OAuth Third Party Controls */
+        .btn-google {
+            width: 100%;
+            padding: 11px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-google:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .btn-google svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .back-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <h2 id="auth-title">Welcome Back</h2>
+            <p id="auth-subtitle">Sign in to safely access your management dashboard.</p>
+        </div>
+
+        <div class="auth-tabs" id="auth-tabs-group">
+            <button class="tab-btn active" id="tab-login">Log In</button>
+            <button class="tab-btn" id="tab-signup">Sign Up</button>
+        </div>
+
+        <div id="auth-alert" class="alert-banner"></div>
+
+        <form id="form-login" class="auth-form" novalidate>
+            <div class="form-group">
+                <label for="login-email">Email Address</label>
+                <input type="email" id="login-email" required placeholder="name@domain.com">
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" required placeholder="••••••••">
+            </div>
+            <div class="form-options">
+                <a id="show-forgot">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn-submit">Log In</button>
+            
+            <div class="divider">or</div>
+            <button type="button" class="btn-google">
+                <svg viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5.04c1.64 0 3.12.56 4.28 1.67l3.2-3.2C17.52 1.58 14.96 1 12 1 7.35 1 3.42 3.68 1.52 7.58l3.74 2.9C6.15 6.88 8.85 5.04 12 5.04z"/><path fill="#4285F4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.35H12v4.46h6.44c-.28 1.47-1.11 2.71-2.36 3.55l3.66 2.84c2.14-1.98 3.39-4.89 3.39-8.5z"/><path fill="#FBBC05" d="M5.26 14.75c-.24-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29L1.52 7.27C.55 9.22 0 11.4 0 13.7s.55 4.48 1.52 6.43l3.74-2.38z"/><path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.92l-3.66-2.84c-1.01.67-2.3 1.08-4.3 1.08-3.15 0-5.85-1.84-6.81-4.54l-3.74 2.38C3.42 20.32 7.35 23 12 23z"/></svg>
+                Continue with Google
+            </button>
+        </form>
+
+        <form id="form-signup" class="auth-form" novalidate>
+            <div class="form-group">
+                <label for="signup-name">Full Name</label>
+                <input type="text" id="signup-name" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+                <label for="signup-email">Email Address</label>
+                <input type="email" id="signup-email" required placeholder="name@domain.com">
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" required placeholder="Min 6 characters">
+            </div>
+            <div class="form-group">
+                <label for="signup-confirm">Confirm Password</label>
+                <input type="password" id="signup-confirm" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-submit">Create Account</button>
+            
+            <div class="divider">or</div>
+            <button type="button" class="btn-google">
+                <svg viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5.04c1.64 0 3.12.56 4.28 1.67l3.2-3.2C17.52 1.58 14.96 1 12 1 7.35 1 3.42 3.68 1.52 7.58l3.74 2.9C6.15 6.88 8.85 5.04 12 5.04z"/><path fill="#4285F4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.35H12v4.46h6.44c-.28 1.47-1.11 2.71-2.36 3.55l3.66 2.84c2.14-1.98 3.39-4.89 3.39-8.5z"/><path fill="#FBBC05" d="M5.26 14.75c-.24-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29L1.52 7.27C.55 9.22 0 11.4 0 13.7s.55 4.48 1.52 6.43l3.74-2.38z"/><path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.92l-3.66-2.84c-1.01.67-2.3 1.08-4.3 1.08-3.15 0-5.85-1.84-6.81-4.54l-3.74 2.38C3.42 20.32 7.35 23 12 23z"/></svg>
+                Sign up with Google
+            </button>
+        </form>
+
+        <form id="form-forgot" class="auth-form" novalidate>
+            <div style="margin-bottom: 20px; color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.5;">
+                Enter your verified email below. We will transmit an account recovery access sequence link to your inbox.
+            </div>
+            <div class="form-group">
+                <label for="forgot-email">Email Address</label>
+                <input type="email" id="forgot-email" required placeholder="name@domain.com">
+            </div>
+            <button type="submit" class="btn-submit">Send Reset Link</button>
+            <div class="back-container">
+                <a id="back-to-login" class="back-link">← Back to Login</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // REPLACE THESE SETTINGS WITH YOUR ACTUAL FIREBASE WEB APP CONFIG VALUES FROM YOUR CONSOLE
+        const firebaseConfig = {
+           apiKey: "AIzaSyAAbsTio8-D1EFq9Fm19XtfQfcXLOvg2SE",
+           authDomain: "resumebuider-e5b61.firebaseapp.com",
+           projectId: "resumebuider-e5b61",
+           storageBucket: "resumebuider-e5b61.firebasestorage.app",
+           messagingSenderId: "787478663952",
+           appId: "1:787478663952:web:342c6162265e11067f0b95"
+        };
+
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        // Bridge your custom naming properties directly to the system engines
+        const activeAuth = firebase.auth();
+        const activeDb = firebase.firestore();
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+        /* =======================================================
+           YOUR ORIGINAL ROUTING AND TAB INTERACTION LOGIC
+           ======================================================= */
+        document.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            const pageName = path.substring(path.lastIndexOf('/') + 1);
+            
+            activeAuth.onAuthStateChanged((user) => {
+                if (user) {
+                    if (pageName === 'login.html' || pageName === '') {
+                        console.log("Authenticated! Redirecting target -> dashboard.html");
+                        // Uncomment to activate actual routing rule:
+                        // window.location.href = 'dashboard.html';
+                    }
+                    
+                    const userNameEl = document.getElementById('user-display-name');
+                    const userEmailEl = document.getElementById('user-display-email');
+                    if (userNameEl) {
+                        userNameEl.textContent = user.displayName || user.email.split('@')[0];
+                    }
+                    if (userEmailEl) {
+                        userEmailEl.textContent = user.email;
+                    }
+                } else {
+                    if (pageName === 'dashboard.html' || pageName === 'builder.html') {
+                        window.location.href = 'login.html';
+                    }
+                }
+            });
+
+            // Always run form layout management on single-page file container setup
+            initAuthForm();
+            
+            const logoutBtns = document.querySelectorAll('.btn-logout');
+            logoutBtns.forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    try {
+                        await activeAuth.signOut();
+                        window.location.href = 'index.html';
+                    } catch (err) {
+                        console.error("Logout failed: ", err);
+                    }
+                });
+            });
+        });
+
+        function initAuthForm() {
+            const tabLogin = document.getElementById('tab-login');
+            const tabSignup = document.getElementById('tab-signup');
+            const formLogin = document.getElementById('form-login');
+            const formSignup = document.getElementById('form-signup');
+            const formForgot = document.getElementById('form-forgot');
+            
+            const showForgotBtn = document.getElementById('show-forgot');
+            const backToLoginBtn = document.getElementById('back-to-login');
+            const authSubtitle = document.getElementById('auth-subtitle');
+            const authTitle = document.getElementById('auth-title');
+            const alertBanner = document.getElementById('auth-alert');
+            
+            function showAlert(message, type = 'error') {
+                alertBanner.textContent = message;
+                alertBanner.className = `alert-banner active alert-${type}`;
+                alertBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            
+            function hideAlert() {
+                alertBanner.classList.remove('active');
+            }
+            
+            tabLogin.addEventListener('click', () => {
+                hideAlert();
+                tabLogin.classList.add('active');
+                tabSignup.classList.remove('active');
+                formLogin.style.display = 'block';
+                formSignup.style.display = 'none';
+                formForgot.style.display = 'none';
+                authTitle.textContent = "Welcome Back";
+                authSubtitle.style.display = 'block';
+            });
+            
+            tabSignup.addEventListener('click', () => {
+                hideAlert();
+                tabSignup.classList.add('active');
+                tabLogin.classList.remove('active');
+                formLogin.style.display = 'none';
+                formSignup.style.display = 'block';
+                formForgot.style.display = 'none';
+                authTitle.textContent = "Create Account";
+                authSubtitle.style.display = 'block';
+            });
+            
+            showForgotBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                hideAlert();
+                formLogin.style.display = 'none';
+                formSignup.style.display = 'none';
+                formForgot.style.display = 'block';
+                authTitle.textContent = "Reset Password";
+                authSubtitle.style.display = 'none';
+            });
+            
+            backToLoginBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                tabLogin.click();
+            });
+            
+            formLogin.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                hideAlert();
+                const email = document.getElementById('login-email').value.trim();
+                const pass = document.getElementById('login-password').value;
+                const btn = formLogin.querySelector('button[type="submit"]');
+                
+                try {
+                    btn.disabled = true;
+                    btn.textContent = "Logging in...";
+                    await activeAuth.signInWithEmailAndPassword(email, pass);
+                    showAlert("Login successful! Redirecting...", "success");
+                } catch (err) {
+                    showAlert(err.message || "Invalid email or password. Please try again.");
+                    btn.disabled = false;
+                    btn.textContent = "Log In";
+                }
+            });
+            
+            formSignup.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                hideAlert();
+                const name = document.getElementById('signup-name').value.trim();
+                const email = document.getElementById('signup-email').value.trim();
+                const pass = document.getElementById('signup-password').value;
+                const confirmPass = document.getElementById('signup-confirm').value;
+                const btn = formSignup.querySelector('button[type="submit"]');
+                
+                if (pass !== confirmPass) {
+                    showAlert("Passwords do not match.");
+                    return;
+                }
+                if (pass.length < 6) {
+                    showAlert("Password should be at least 6 characters.");
+                    return;
+                }
+                
+                try {
+                    btn.disabled = true;
+                    btn.textContent = "Creating Account...";
+                    
+                    const credentials = await activeAuth.createUserWithEmailAndPassword(email, pass);
+                    
+                    if (credentials.user) {
+                        await credentials.user.updateProfile({ displayName: name });
+                        const userObj = {
+                            uid: credentials.user.uid,
+                            name: name,
+                            email: email,
+                            createdAt: new Date().toISOString()
+                        };
+                        try {
+                            await activeDb.collection('users').doc(credentials.user.uid).set(userObj);
+                        } catch(dbErr) {
+                            console.warn("Could not save profile document: ", dbErr);
+                        }
+                    }
+                    showAlert("Account created successfully!", "success");
+                } catch (err) {
+                    showAlert(err.message || "Failed to create account.");
+                    btn.disabled = false;
+                    btn.textContent = "Create Account";
+                }
+            });
+            
+            formForgot.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                hideAlert();
+                const email = document.getElementById('forgot-email').value.trim();
+                const btn = formForgot.querySelector('button[type="submit"]');
+                
+                try {
+                    btn.disabled = true;
+                    btn.textContent = "Sending Link...";
+                    await activeAuth.sendPasswordResetEmail(email);
+                    showAlert("Password reset link sent to your email.", "success");
+                    btn.disabled = false;
+                    btn.textContent = "Send Reset Link";
+                } catch (err) {
+                    showAlert(err.message || "Failed to send reset link.");
+                    btn.disabled = false;
+                    btn.textContent = "Send Reset Link";
+                }
+            });
+            
+            const googleBtns = document.querySelectorAll('.btn-google');
+            googleBtns.forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    hideAlert();
+                    try {
+                        const result = await activeAuth.signInWithPopup(googleProvider);
+                        if (result.user) {
+                            const userObj = {
+                                uid: result.user.uid,
+                                name: result.user.displayName || result.user.email.split('@')[0],
+                                email: result.user.email,
+                                createdAt: new Date().toISOString()
+                            };
+                            try {
+                                await activeDb.collection('users').doc(result.user.uid).set(userObj, { merge: true });
+                            } catch(dbErr) {
+                                console.warn("Could not save Google profile: ", dbErr);
+                            }
+                        }
+                        showAlert("Google authentication successful!", "success");
+                    } catch (err) {
+                        showAlert(err.message || "Google login aborted.");
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

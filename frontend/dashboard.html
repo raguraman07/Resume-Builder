@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeCraft | User Dashboard</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <div class="app-layout-wrapper">
+        <aside class="sidebar-navigation">
+            <div class="sidebar-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-magic"></i> <span>ResumeCraft</span>
+                </a>
+            </div>
+            
+            <nav class="sidebar-menu-links">
+                <a href="dashboard.html" class="side-link active">
+                    <i class="fas fa-th-large"></i> <span>Dashboard</span>
+                </a>
+                <a href="profile.html" class="side-link">
+                    <i class="fas fa-user-cog"></i> <span>Profile Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer-profile">
+                <div class="user-meta-avatar">
+                    <div class="avatar-fallback" id="user-avatar-initials">U</div>
+                    <div class="user-info-text">
+                        <span id="user-display-name">User Account</span>
+                    
+                    </div>
+                </div>
+                <button class="btn-sidebar-logout btn-logout" aria-label="Log Out Account">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-app-content">
+            
+            <header class="top-app-bar">
+                <div class="search-bar-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Search your workspace assets..." id="dashboard-search">
+                </div>
+                
+                <div class="top-bar-actions">
+                    <button class="btn-app-icon theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-sun"></i>
+                    </button>
+                    
+                    <button class="btn btn-primary btn-action-trigger" id="quick-create-action-btn">
+                        <i class="fas fa-plus"></i> <span>Create New</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="dashboard-viewport-body">
+                
+                <!-- Canva-style Welcome Banner -->
+                <div class="canva-banner anim-fade">
+                    <div class="banner-content">
+                        <h1>Design your next career move</h1>
+                        <p>Create, customize, and export production-ready, ATS-optimized resumes.</p>
+                    </div>
+                    <div class="banner-quick-actions">
+                        <div class="action-tag" data-category="general">
+                            <div class="action-tag-icon tag-gen"><i class="fas fa-file-invoice"></i></div>
+                            <span>General Resume</span>
+                        </div>
+                        <div class="action-tag" data-category="tech">
+                            <div class="action-tag-icon tag-te"><i class="fas fa-code"></i></div>
+                            <span>Tech Developer</span>
+                        </div>
+                        <div class="action-tag" data-category="corporate">
+                            <div class="action-tag-icon tag-corp"><i class="fas fa-chart-line"></i></div>
+                            <span>Corporate Exec</span>
+                        </div>
+                        <div class="action-tag" data-category="creative">
+                            <div class="action-tag-icon tag-creat"><i class="fas fa-palette"></i></div>
+                            <span>Creative Layout</span>
+                        </div>
+                        <div class="action-tag" data-category="freelance">
+                            <div class="action-tag-icon tag-free"><i class="fas fa-briefcase"></i></div>
+                            <span>Freelance Gig</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Drive Style: Recent Designs -->
+                <section class="recent-designs-section anim-slide-up" id="recent-designs-container" style="display: none; margin-bottom: 40px;">
+                    <div class="section-heading-row" style="margin-bottom: 16px;">
+                        <h2>Recent Designs</h2>
+                    </div>
+                    <div class="recent-scroll-wrapper">
+                        <div class="recent-row" id="recent-resumes-row">
+                            <!-- Filled dynamically by JavaScript -->
+                        </div>
+                    </div>
+                </section>
+
+                <div class="dash-header anim-fade">
+                    <div class="dash-title">
+                        <h2>All Workspaces</h2>
+                        <p>Manage, scale, duplicate, and export production-ready ATS optimization records.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-row anim-slide-up">
+                    <div class="metric-card glass-card">
+                        <div class="metric-icon"><i class="far fa-copy"></i></div>
+                        <div class="metric-info">
+                            <h3 id="stat-total-resumes">0</h3>
+                            <p>Total Resumes</p>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card glass-card">
+                        <div class="metric-icon"><i class="far fa-clock"></i></div>
+                        <div class="metric-info">
+                            <h3 id="stat-recent-resume">None</h3>
+                            <p>Recently Edited</p>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card glass-card">
+                        <div class="metric-icon"><i class="fas fa-briefcase"></i></div>
+                        <div class="metric-info">
+                            <h3 id="stat-platforms-used">0</h3>
+                            <p>Target Track Channels</p>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="workspace-asset-section">
+    <div class="section-heading-row">
+        <h2>Active Workspaces</h2>
+        <span class="grid-stats">Showing all projects</span>
+    </div>
+    
+    <div class="resume-grid" id="resume-grid">
+        <div class="resume-card create-new-card" id="btn-trigger-create">
+            <div class="create-content">
+                <i class="fas fa-plus-circle"></i>
+                <span>Create New</span>
+            </div>
+        </div>
+        </div>
+</section>
+
+    <div class="modal" id="create-modal">
+        <div class="modal-content glass-card anim-scale-up">
+            <div class="modal-header">
+                <h3>Configure Document Blueprint</h3>
+                <button class="modal-close" id="close-modal" aria-label="Close Setup Interface Dialog">&times;</button>
+            </div>
+            
+            <form id="form-create-resume">
+                <div class="form-group">
+                    <label class="form-label" for="resume-title">Resume Description Alias</label>
+                    <input type="text" id="resume-title" class="form-input" placeholder="e.g. Senior Backend Engineer - Stripe" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="resume-platform">Which channel architecture are you optimizing for?</label>
+                    <select id="resume-platform" class="form-select" required>
+                        <option value="general" selected>General / Standard Placement</option>
+                        <option value="tech">Tech Channels (Software, DevOps, Data Science)</option>
+                        <option value="corporate">Corporate Systems (Finance, Strategy, Consulting)</option>
+                        <option value="creative">Creative Layout Modules (UI/UX, Graphic Systems)</option>
+                        <option value="freelance">Freelance/Contract Networks (Upwork, Remote Consulting)</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width:100%; height:48px; font-size:15px; margin-top:24px;">
+                    Generate Workspace Deck <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    
+    <script>
+        // System Theme Management Execution Hook
+        const themeBtn = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('theme');
+        
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
+        
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+        });
+
+        // Extra Event Trigger Hook mapping context back to original code architecture
+        const contextModalTrigger = document.getElementById('quick-create-action-btn');
+        const standardModalWrapper = document.getElementById('create-modal');
+        
+        if(contextModalTrigger && standardModalWrapper) {
+            contextModalTrigger.addEventListener('click', () => {
+                standardModalWrapper.style.display = 'flex';
+                standardModalWrapper.classList.add('active');
+            });
+        }
+    </script>
+</body>
+</html>

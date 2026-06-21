@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeCraft | Dynamic Builder Workspace</title>
+    
+    <!-- External Icon Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Application Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/builder.css">
+</head>
+<body>
+
+    <!-- Builder Header Navigation -->
+    <header class="builder-nav">
+        <div class="builder-nav-left">
+            <a href="dashboard.html" class="btn btn-secondary" style="padding: 8px 12px; font-size: 13px;">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+            <h2 id="meta-resume-title">My Resume</h2>
+            <span id="save-status" style="font-size: 13px; color: var(--text-muted); display: inline-flex; align-items: center; gap: 6px;"></span>
+        </div>
+        
+        <div class="builder-nav-right">
+            <button class="btn btn-secondary btn-app-icon theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark/Light Theme">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+            
+            <button type="button" id="btn-toggle-ats" class="btn btn-secondary">
+                <i class="fas fa-magic"></i> Check ATS
+            </button>
+            
+            <button type="button" id="btn-toggle-guide" class="btn btn-secondary">
+                <i class="fas fa-book"></i> Writing Guide
+            </button>
+            
+            <button type="button" id="btn-toggle-styles" class="btn btn-secondary">
+                <i class="fas fa-palette"></i> Customize Styles
+            </button>
+            
+            <button type="button" id="btn-save-resume" class="btn btn-primary">
+                <i class="fas fa-save"></i> Save
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="builder-workspace">
+        
+        <!-- Left Side Panel: Form Wizard -->
+        <section class="builder-form-panel">
+            
+            <!-- Wizard Step Stepper Progress -->
+            <div class="stepper-progress">
+                <div class="step-indicator active" data-step="0">1</div>
+                <div class="step-indicator" data-step="1">2</div>
+                <div class="step-indicator" data-step="2">3</div>
+                <div class="step-indicator" data-step="3">4</div>
+                <div class="step-indicator" data-step="4">5</div>
+                <div class="step-indicator" data-step="5">6</div>
+                <div class="step-indicator" data-step="6">7</div>
+            </div>
+
+            <!-- STEP 1: Personal Details -->
+            <div class="form-step-container active" id="step-personal">
+                <div class="form-step-header">
+                    <h3>Personal Details</h3>
+                    <p>Provide contact and profile summary details for the header block.</p>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Profile Photo (Optional)</label>
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                        <div id="resume-photo-preview" style="width: 72px; height: 72px; border-radius: 50%; border: 1px solid var(--border-color); background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;">
+                            <i class="fas fa-user-alt" style="font-size: 24px; color: var(--text-muted);"></i>
+                        </div>
+                        <div>
+                            <input type="file" id="info-photo-input" accept="image/*" style="display: none;">
+                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('info-photo-input').click()" style="padding: 6px 12px; font-size: 12px; height: auto;">
+                                <i class="fas fa-upload"></i> Upload Photo
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="btn-remove-resume-photo" style="padding: 6px 12px; font-size: 12px; height: auto; color: #ef4444; background: rgba(239, 68, 68, 0.05); border-color: rgba(239, 68, 68, 0.2); margin-left: 8px; display: none;">
+                                <i class="fas fa-trash-alt"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="info-fullname">Full Name</label>
+                    <input type="text" id="info-fullname" class="form-input" placeholder="e.g. John Doe">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="info-jobtitle">Professional Title</label>
+                    <input type="text" id="info-jobtitle" class="form-input" placeholder="e.g. Lead Software Engineer">
+                </div>
+                
+                <div style="display: flex; gap: 16px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label" for="info-email">Email Address</label>
+                        <input type="email" id="info-email" class="form-input" placeholder="e.g. name@domain.com">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label" for="info-phone">Phone Number</label>
+                        <input type="tel" id="info-phone" class="form-input" placeholder="e.g. +1 (555) 019-2834">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="info-address">Location / Address</label>
+                    <input type="text" id="info-address" class="form-input" placeholder="e.g. San Francisco, CA">
+                </div>
+                
+                <div style="display: flex; gap: 16px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label" for="info-linkedin">LinkedIn Handle</label>
+                        <input type="text" id="info-linkedin" class="form-input" placeholder="e.g. linkedin.com/in/johndoe">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label" for="info-github">GitHub Handle</label>
+                        <input type="text" id="info-github" class="form-input" placeholder="e.g. github.com/johndoe">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="info-portfolio">Portfolio / Web Link</label>
+                    <input type="text" id="info-portfolio" class="form-input" placeholder="e.g. johndoe.dev">
+                </div>
+                
+                <div class="form-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <label class="form-label" style="margin-bottom: 0;" for="info-summary">Professional Summary</label>
+                        <button type="button" class="btn btn-secondary" id="btn-enhance-summary" style="padding: 4px 10px; font-size: 11px;">
+                            <i class="fas fa-magic"></i> Enhance with AI
+                        </button>
+                    </div>
+                    <textarea id="info-summary" class="form-textarea" rows="5" placeholder="Write a short summary profile or let AI optimize it..."></textarea>
+                </div>
+            </div>
+
+            <!-- STEP 2: Experience History -->
+            <div class="form-step-container" id="step-experience">
+                <div class="form-step-header">
+                    <h3>Work History</h3>
+                    <p>Highlight key career steps and measurable achievements.</p>
+                </div>
+                
+                <div id="experience-list">
+                    <!-- repeatables will render dynamically -->
+                </div>
+                
+                <button type="button" id="btn-add-experience" class="btn-add-item">
+                    <i class="fas fa-plus"></i> Add Work Experience Block
+                </button>
+            </div>
+
+            <!-- STEP 3: Education Details -->
+            <div class="form-step-container" id="step-education">
+                <div class="form-step-header">
+                    <h3>Academic Records</h3>
+                    <p>Add graduation degrees, certifications, and high-tier qualifications.</p>
+                </div>
+                
+                <div id="education-list">
+                    <!-- repeatables will render dynamically -->
+                </div>
+                
+                <button type="button" id="btn-add-education" class="btn-add-item">
+                    <i class="fas fa-plus"></i> Add Academic Record
+                </button>
+            </div>
+
+            <!-- STEP 4: Skills Matrix -->
+            <div class="form-step-container" id="step-skills">
+                <div class="form-step-header">
+                    <h3>Skills & Expertise</h3>
+                    <p>Group professional skills, frameworks, and tools by category headers.</p>
+                </div>
+                
+                <div id="skills-list">
+                    <!-- repeatables will render dynamically -->
+                </div>
+                
+                <button type="button" id="btn-add-skill-cat" class="btn-add-item">
+                    <i class="fas fa-plus"></i> Add Skill Category Group
+                </button>
+            </div>
+
+            <!-- STEP 5: Projects Portfolio -->
+            <div class="form-step-container" id="step-projects">
+                <div class="form-step-header">
+                    <h3>Featured Projects</h3>
+                    <p>Add notable project accomplishments, URLs, and code repository links.</p>
+                </div>
+                
+                <div id="projects-list">
+                    <!-- repeatables will render dynamically -->
+                </div>
+                
+                <button type="button" id="btn-add-project" class="btn-add-item">
+                    <i class="fas fa-plus"></i> Add Project Profile
+                </button>
+            </div>
+
+            <!-- STEP 6: Certifications list -->
+            <div class="form-step-container" id="step-certifications">
+                <div class="form-step-header">
+                    <h3>Certifications</h3>
+                    <p>List key course completions, vendor certifications, and licenses.</p>
+                </div>
+                
+                <div id="certs-list">
+                    <!-- repeatables will render dynamically -->
+                </div>
+                
+                <button type="button" id="btn-add-cert" class="btn-add-item">
+                    <i class="fas fa-plus"></i> Add Certification
+                </button>
+            </div>
+
+            <!-- STEP 7: Custom Sections -->
+            <div class="form-step-container" id="step-custom">
+                <div class="form-step-header">
+                    <h3>Custom Layout Blocks</h3>
+                    <p>Add custom resume headings for publications, volunteer work, or hobbies.</p>
+                </div>
+                
+                <div id="custom-sections-list">
+                    <!-- repeatables will render dynamically -->
+                </div>
+                
+                <button type="button" id="btn-add-custom-sect" class="btn-add-item">
+                    <i class="fas fa-plus"></i> Add Custom Section Block
+                </button>
+            </div>
+
+            <!-- Form Wizard Navigation Footer -->
+            <div class="wizard-footer">
+                <button type="button" id="btn-prev-step" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Previous Step
+                </button>
+                <button type="button" id="btn-next-step" class="btn btn-primary">
+                    Next Step <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            
+        </section>
+
+        <!-- Right Side Panel: Live Visual Preview Canvas -->
+        <section class="builder-preview-panel" id="preview-panel">
+            
+            <!-- Preview Controls Bar -->
+            <div class="preview-toolbar">
+                <div class="toolbar-controls">
+                    <label for="toolbar-template-select" style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-right: 8px;">TEMPLATE:</label>
+                    <select id="toolbar-template-select" class="form-select" style="width: 190px; padding: 6px 12px; height: auto; border-radius: var(--radius-sm);">
+                        <option value="modern_professional">Modern Professional</option>
+                        <option value="minimal_ats">Minimal ATS</option>
+                        <option value="executive">Executive</option>
+                        <option value="creative_designer">Creative Designer</option>
+                        <option value="developer_portfolio">Developer Portfolio</option>
+                        <option value="corporate">Corporate</option>
+                        <option value="elegant_dark">Elegant Dark</option>
+                    </select>
+                </div>
+                
+                <div class="toolbar-controls">
+                    <button type="button" id="btn-zoom-out" class="btn btn-secondary btn-icon" title="Zoom Out">
+                        <i class="fas fa-search-minus"></i>
+                    </button>
+                    <button type="button" id="btn-zoom-in" class="btn btn-secondary btn-icon" title="Zoom In">
+                        <i class="fas fa-search-plus"></i>
+                    </button>
+                    <button type="button" id="btn-fullscreen" class="btn btn-secondary btn-icon" title="Toggle Fullscreen">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button type="button" id="btn-download-pdf" class="btn btn-accent">
+                        <i class="fas fa-file-pdf"></i> Export PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Render Canvas wrapper -->
+            <div class="resume-paper-container">
+                <div id="resume-preview" class="resume-paper">
+                    <!-- Real-time compiled templates html template injects here -->
+                </div>
+            </div>
+            
+        </section>
+        
+    </main>
+
+    <!-- Visual Customizer Style Sidebar Drawer -->
+    <div class="builder-drawer" id="styles-drawer">
+        <div class="drawer-header">
+            <h3>Visual Style Editor</h3>
+            <button type="button" id="close-styles" class="btn btn-secondary btn-icon" style="background: none; border: none; font-size: 20px;">&times;</button>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Theme Accent Color</label>
+            <div class="color-swatches">
+                <div class="swatch" data-color="#6366f1" style="background: #6366f1;"></div>
+                <div class="swatch" data-color="#06b6d4" style="background: #06b6d4;"></div>
+                <div class="swatch" data-color="#f97316" style="background: #f97316;"></div>
+                <div class="swatch" data-color="#10b981" style="background: #10b981;"></div>
+                <div class="swatch" data-color="#ec4899" style="background: #ec4899;"></div>
+                <div class="swatch" data-color="#1e293b" style="background: #1e293b;"></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label" for="style-font">Font Family</label>
+            <select id="style-font" class="form-select">
+                <option value="Inter">Inter (Clean Slate / Tech)</option>
+                <option value="Poppins">Poppins (Modern Geometric)</option>
+                <option value="Montserrat">Montserrat (Executive Branding)</option>
+                <option value="Roboto">Roboto (Minimal Neutral)</option>
+                <option value="Fira Code">Fira Code (Developer Terminal)</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label" for="style-layout">Document Structure Layout</label>
+            <select id="style-layout" class="form-select">
+                <option value="two">Two Columns / Sidebar Layout</option>
+                <option value="single">Single Column / Linear Flow</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label" for="style-spacing">Vertical Spacing Preset</label>
+            <select id="style-spacing" class="form-select">
+                <option value="compact">Compact / Dense</option>
+                <option value="comfortable" selected>Comfortable / Standard</option>
+                <option value="loose">Loose / Spacious</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- ATS Match Score Feedback Sidebar Drawer -->
+    <div class="builder-drawer" id="ats-drawer">
+        <div class="drawer-header">
+            <h3>ATS Optimizer Score</h3>
+            <button type="button" id="close-ats" class="btn btn-secondary btn-icon" style="background: none; border: none; font-size: 20px;">&times;</button>
+        </div>
+        
+        <div class="ats-score-container">
+            <div class="circular-progress" id="ats-progress-circle">
+                <span class="progress-value" id="ats-progress-value">0%</span>
+            </div>
+            <p style="font-size: 13px; font-weight: 500; color: var(--text-secondary); text-align: center; line-height: 1.4;">
+                Your resume match score is evaluated dynamically based on target keywords.
+            </p>
+        </div>
+        
+        <h4 style="font-size: 13px; font-weight: 700; color: var(--text-primary); text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 6px;">
+            Optimizations Checklist
+        </h4>
+        
+        <div class="ats-feedback-list" id="ats-suggestions-list">
+            <!-- suggestions populated via builder.js -->
+        </div>
+    </div>
+
+    <!-- Resume Writing Guide Sidebar Drawer -->
+    <div class="builder-drawer" id="guide-drawer">
+        <div class="drawer-header">
+            <h3>Writing Guide</h3>
+            <button type="button" id="close-guide" class="btn btn-secondary btn-icon" style="background: none; border: none; font-size: 20px;">&times;</button>
+        </div>
+        
+        <div class="guide-content" style="display: flex; flex-direction: column; gap: 20px; font-size: 13px; line-height: 1.5; color: var(--text-secondary); overflow-y: auto; padding-right: 4px;">
+            
+            <!-- Section 1 -->
+            <div class="guide-section">
+                <h4 style="color: var(--text-primary); font-size: 14px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-database" style="color: var(--primary);"></i> 1. The Core Data
+                </h4>
+                <p style="margin-bottom: 12px; font-size: 12px; color: var(--text-muted);">Use this foundational structure across all resume templates.</p>
+                
+                <div style="background: var(--bg-tertiary); padding: 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--primary); display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;">
+                    <div><strong>Contact Info:</strong> <span style="font-family: monospace; font-size: 11px; color: var(--accent);">[Full Name] | [Target Title] | [Phone] | [Email] | [Location] | [Links]</span></div>
+                    <div><strong>Education:</strong> <span style="font-family: monospace; font-size: 11px; color: var(--accent);">[Degree], [Institution], [Graduation Date]</span> (Include honors or high GPA)</div>
+                    <div><strong>Internships:</strong> Treat as "Professional Experience"</div>
+                    <div><strong>Structure:</strong> <span style="font-family: monospace; font-size: 11px; color: var(--accent);">[Company Name] | [Internship Title] | [Start - End Date]</span></div>
+                </div>
+                
+                <div style="display: flex; align-items: flex-start; gap: 8px;">
+                    <i class="fas fa-check-circle" style="color: #10b981; margin-top: 2px;"></i>
+                    <span><strong>Action points:</strong> Focus on 3-4 bullet points starting with strong verbs (e.g., <em>Developed</em>, <em>Optimized</em>, <em>Automated</em>).</span>
+                </div>
+            </div>
+            
+            <hr style="border: 0; border-top: 1px solid var(--border-color);">
+            
+            <!-- Section 2 -->
+            <div class="guide-section">
+                <h4 style="color: var(--text-primary); font-size: 14px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-copy" style="color: var(--secondary);"></i> 2. Template Variations
+                </h4>
+                <p style="margin-bottom: 12px; font-size: 12px; color: var(--text-muted);">Tailor your resume content strategy based on the layout template chosen.</p>
+                
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 11px;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-primary);">
+                            <th style="padding: 6px 4px; font-weight: 600; width: 35%;">Type</th>
+                            <th style="padding: 6px 4px; font-weight: 600; width: 65%;">Focus & Strategy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 8px 4px; font-weight: 500; color: var(--text-primary);">Minimal ATS / Corporate</td>
+                            <td style="padding: 8px 4px; color: var(--text-secondary);">
+                                <strong>Keyword Density & Structure</strong><br>
+                                Use standard headings. Keep bullet points concise and mapped to job descriptions.
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 8px 4px; font-weight: 500; color: var(--text-primary);">Developer Portfolio</td>
+                            <td style="padding: 8px 4px; color: var(--text-secondary);">
+                                <strong>Technical Proficiency</strong><br>
+                                Highlight projects (details, tech stack, links). Group skills by Language, Framework, and Tool.
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 8px 4px; font-weight: 500; color: var(--text-primary);">Creative Designer</td>
+                            <td style="padding: 8px 4px; color: var(--text-secondary);">
+                                <strong>Design & UX Process</strong><br>
+                                Focus projects on the problem solved. Add Figma/Adobe Suite under skills.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <hr style="border: 0; border-top: 1px solid var(--border-color);">
+            
+            <!-- Section 3 -->
+            <div class="guide-section" style="margin-bottom: 12px;">
+                <h4 style="color: var(--text-primary); font-size: 14px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-pen-nib" style="color: var(--accent);"></i> 3. Experience Drafting
+                </h4>
+                <p style="margin-bottom: 12px; font-size: 12px; color: var(--text-muted);">Use these exact formula frameworks to construct outstanding impact bullet points:</p>
+                
+                <div style="background: var(--bg-tertiary); padding: 12px; border-radius: var(--radius-sm); font-family: monospace; font-size: 11px; margin-bottom: 12px; color: var(--text-primary); border: 1px dashed var(--border-color); line-height: 1.4;">
+                    [Company] | [Internship Title] | [Dates]<br><br>
+                    • <strong>[Achievement 1]:</strong> Achieved [Result] by [Action taken] using [Technology].<br><br>
+                    • <strong>[Achievement 2]:</strong> Collaborated with [Team Name] to improve [Process/Feature] by [Metric %].<br><br>
+                    • <strong>[Achievement 3]:</strong> Demonstrated proficiency in [Technical Skill] by completing [Project/Task].
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- SDK Compat Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+
+    <!-- Application Initialization Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/templates.js"></script>
+    <script src="js/builder.js"></script>
+    
+    <script>
+        // Synchronized light / dark theme hook execution
+        const themeBtn = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
+        
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-theme');
+                localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+            });
+        }
+    </script>
+</body>
+</html>

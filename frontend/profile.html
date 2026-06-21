@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeCraft | Profile Settings</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <div class="app-layout-wrapper">
+        <aside class="sidebar-navigation">
+            <div class="sidebar-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-magic"></i> <span>ResumeCraft</span>
+                </a>
+            </div>
+            
+            <nav class="sidebar-menu-links">
+                <a href="dashboard.html" class="side-link">
+                    <i class="fas fa-th-large"></i> <span>Dashboard</span>
+                </a>
+                <a href="profile.html" class="side-link active">
+                    <i class="fas fa-user-cog"></i> <span>Profile Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer-profile">
+                <div class="user-meta-avatar">
+                    <div class="avatar-fallback" id="user-avatar-initials">U</div>
+                    <div class="user-info-text">
+                        <span id="user-display-name">User Account</span>
+                        <p class="user-role-label">Premium Tier</p>
+                    </div>
+                </div>
+                <button class="btn-sidebar-logout btn-logout" aria-label="Log Out Account">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-app-content">
+            
+            <header class="top-app-bar">
+                <div class="search-bar-wrapper" style="visibility: hidden;">
+                    <input type="text">
+                </div>
+                
+                <div class="top-bar-actions">
+                    <button class="btn-app-icon theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-sun"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="dashboard-viewport-body">
+                
+                <div class="dash-header anim-fade">
+                    <div class="dash-title">
+                        <h1>Account Settings</h1>
+                        <p>Update your profile credentials, personal workspace alias, and synchronized information records.</p>
+                    </div>
+                </div>
+
+                <div class="workspace-asset-section anim-slide-up" style="max-width: 600px;">
+                    <div class="card-base" style="padding: 32px; background: var(--bg-secondary); border-radius: var(--radius-md, 8px);">
+                        
+                        <form id="form-update-profile">
+                            <div style="display: flex; align-items: center; gap: 24px; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border-color, #e2e8f0);">
+                                <div class="avatar-fallback" id="profile-large-avatar" style="width: 72px; height: 72px; font-size: 28px; display: flex; align-items: center; justify-content: center; background: var(--primary-color, #6366f1); color: white; border-radius: 50%; overflow: hidden; position: relative;">U</div>
+                                <div>
+                                    <h3 style="font-size: 16px; margin: 0 0 4px 0;">Profile Picture Identity</h3>
+                                    <div style="display: flex; gap: 8px; margin-top: 8px;">
+                                        <input type="file" id="profile-photo-input" accept="image/*" style="display: none;">
+                                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('profile-photo-input').click()" style="padding: 6px 12px; font-size: 12px; height: auto;">
+                                            <i class="fas fa-upload"></i> Upload Photo
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" id="btn-remove-profile-photo" style="padding: 6px 12px; font-size: 12px; height: auto; color: #ef4444; background: rgba(239, 68, 68, 0.05); border-color: rgba(239, 68, 68, 0.2); display: none;">
+                                            <i class="fas fa-trash-alt"></i> Remove
+                                        </button>
+                                    </div>
+                                    <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Supported formats: JPG, PNG. Resized to 128x128.</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 20px;">
+                                <label class="form-label" style="display: block; font-weight: 600; font-size: 13px; margin-bottom: 8px; color: var(--text-secondary);">Full Name / Handle</label>
+                                <input type="text" id="profile-display-name" class="form-input" style="width: 100%; height: 44px; padding: 0 14px; border-radius: var(--radius-sm, 4px); border: 1px solid var(--border-color); background: var(--bg-tertiary); color: var(--text-primary); outline: none;" placeholder="Retrieving user meta state..." required>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 32px;">
+                                <label class="form-label" style="display: block; font-weight: 600; font-size: 13px; margin-bottom: 8px; color: var(--text-secondary);">Account Email Address</label>
+                                <input type="email" id="profile-email" class="form-input" style="width: 100%; height: 44px; padding: 0 14px; border-radius: var(--radius-sm, 4px); border: 1px solid var(--border-color); background: var(--bg-tertiary); color: var(--text-muted); cursor: not-allowed; outline: none;" readonly>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="width: 100%; height: 46px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; cursor: pointer;">
+                                <i class="fas fa-save"></i> Synchronize Settings Changes
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    
+    <script>
+        // System Light/Dark Theme Preference Context Engine Hook
+        const themeBtn = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') document.body.classList.add('dark-theme');
+        
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-theme');
+                localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+            });
+        }
+
+        let profilePhotoBase64 = null;
+
+        // Image input listener
+        const photoInput = document.getElementById('profile-photo-input');
+        const largeInitialsNode = document.getElementById('profile-large-avatar');
+        const btnRemovePhoto = document.getElementById('btn-remove-profile-photo');
+
+        if (photoInput) {
+            photoInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                if (file.size > 2 * 1024 * 1024) {
+                    alert("Image is too large. Please select an image smaller than 2MB.");
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = 128;
+                        canvas.height = 128;
+                        
+                        const minDim = Math.min(img.width, img.height);
+                        const sx = (img.width - minDim) / 2;
+                        const sy = (img.height - minDim) / 2;
+                        ctx.drawImage(img, sx, sy, minDim, minDim, 0, 0, 128, 128);
+
+                        profilePhotoBase64 = canvas.toDataURL('image/jpeg', 0.85);
+                        
+                        if (largeInitialsNode) {
+                            largeInitialsNode.innerHTML = `<img src="${profilePhotoBase64}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                            largeInitialsNode.style.background = 'transparent';
+                        }
+                        if (btnRemovePhoto) btnRemovePhoto.style.display = 'inline-block';
+                    };
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        if (btnRemovePhoto) {
+            btnRemovePhoto.addEventListener('click', () => {
+                profilePhotoBase64 = ""; 
+                const initials = (activeAuth.currentUser && activeAuth.currentUser.displayName) ? activeAuth.currentUser.displayName.charAt(0).toUpperCase() : 'U';
+                if (largeInitialsNode) {
+                    largeInitialsNode.innerText = initials;
+                    largeInitialsNode.style.background = 'var(--primary-color, #6366f1)';
+                }
+                btnRemovePhoto.style.display = 'none';
+                if (photoInput) photoInput.value = '';
+            });
+        }
+
+        // Firebase Cloud Session Identity Hook Sync
+        activeAuth.onAuthStateChanged((user) => {
+            if (user) {
+                const nameInput = document.getElementById('profile-display-name');
+                const emailInput = document.getElementById('profile-email');
+                const initialsNode = document.getElementById('user-avatar-initials');
+                const globalDisplayName = document.getElementById('user-display-name');
+                
+                const nameFallback = user.displayName || "Active Workspace User";
+                const firstLetter = nameFallback.charAt(0).toUpperCase();
+
+                if (nameInput) nameInput.value = user.displayName || "";
+                if (globalDisplayName) globalDisplayName.innerText = nameFallback;
+                if (emailInput && user.email) emailInput.value = user.email;
+
+                if (user.photoURL) {
+                    profilePhotoBase64 = user.photoURL;
+                    if (largeInitialsNode) {
+                        largeInitialsNode.innerHTML = `<img src="${user.photoURL}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                        largeInitialsNode.style.background = 'transparent';
+                    }
+                    if (btnRemovePhoto) btnRemovePhoto.style.display = 'inline-block';
+                } else {
+                    if (largeInitialsNode) {
+                        largeInitialsNode.innerText = firstLetter;
+                        largeInitialsNode.style.background = 'var(--primary-color, #6366f1)';
+                    }
+                }
+            } else {
+                window.location.href = "index.html";
+            }
+        });
+
+        // Profile Form Submission Handler
+        document.getElementById('form-update-profile').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const updatedName = document.getElementById('profile-display-name').value.trim();
+            const currentUser = activeAuth.currentUser;
+
+            if (currentUser) {
+                try {
+                    const btnSubmit = e.target.querySelector('button[type="submit"]');
+                    btnSubmit.disabled = true;
+                    btnSubmit.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving...`;
+
+                    const newPhotoURL = profilePhotoBase64 !== null ? profilePhotoBase64 : (currentUser.photoURL || "");
+
+                    await currentUser.updateProfile({ 
+                        displayName: updatedName,
+                        photoURL: newPhotoURL
+                    });
+                    
+                    await activeDb.collection('users').doc(currentUser.uid).set({
+                        name: updatedName,
+                        photoURL: newPhotoURL
+                    }, { merge: true });
+
+                    alert("Account profile settings updated successfully!");
+                    window.location.reload();
+                } catch (error) {
+                    alert("Exception processing profile sync: " + error.message);
+                    window.location.reload();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
